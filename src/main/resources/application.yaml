@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: WorkingWithGraphQL
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    defer-datasource-initialization: true
+  graphql:
+    graphiql:
+      enabled: true
+#    http:
+#      path: /graphql
+server:
+  servlet:
+    context-path: /workingWithGraphQL/v1
