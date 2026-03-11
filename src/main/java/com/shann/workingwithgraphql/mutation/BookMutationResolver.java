@@ -2,8 +2,8 @@ package com.shann.workingwithgraphql.mutation;
 
 import com.shann.workingwithgraphql.model.Author;
 import com.shann.workingwithgraphql.model.Book;
-import com.shann.workingwithgraphql.repository.AuthorRepository;
-import com.shann.workingwithgraphql.repository.BookRepository;
+import com.shann.workingwithgraphql.service.AuthorService;
+import com.shann.workingwithgraphql.service.BookService;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
@@ -11,12 +11,12 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BookMutationResolver {
 
-    private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
+    private final BookService bookService;
+    private final AuthorService authorService;
 
-    public BookMutationResolver(BookRepository bookRepository, AuthorRepository authorRepository) {
-        this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
+    public BookMutationResolver(BookService bookService, AuthorService authorService) {
+        this.bookService = bookService;
+        this.authorService = authorService;
     }
 
     @MutationMapping
@@ -25,13 +25,13 @@ public class BookMutationResolver {
         book.setTitle(title);
         book.setGenre(genre);
         book.setAuthor(author);
-        return bookRepository.save(book);
+        return bookService.save(book);
     }
 
     @MutationMapping
     public Author addAuthor(@Argument String name) {
         Author author = new Author();
         author.setName(name);
-        return authorRepository.save(author);
+        return authorService.save(author);
     }
 }
